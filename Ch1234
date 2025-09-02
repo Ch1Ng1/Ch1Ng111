@@ -1,74 +1,313 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!-- saved from url=(0081)https://apps.colfuturo.org/boletines/2023/Comunicaciones/12_Consejeria_Becas.html -->
-<html lang="es" style="padding: 0;margin: 0;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Визуализация на данни с графики</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+        }
+        
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .chart-container:hover {
+            transform: translateY(-5px);
+        }
+        
+        .chart-title {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        canvas {
+            width: 100% !important;
+            height: 250px !important;
+        }
+        
+        .css-graphs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .css-graph {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        
+        .bar-graph {
+            height: 30px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .bar {
+            height: 20px;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            position: relative;
+        }
+        
+        .bar-value {
+            position: absolute;
+            right: 10px;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+            line-height: 20px;
+        }
+        
+        .bar-label {
+            width: 100px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .pie-chart {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: conic-gradient(
+                #3498db 0% 30%,
+                #2ecc71 30% 60%,
+                #e74c3c 60% 80%,
+                #f39c12 80% 100%
+            );
+            margin: 0 auto;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .charts-grid, .css-graphs {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Визуализация на данни</h1>
+            <p class="subtitle">Интерактивни графики и диаграми</p>
+        </header>
+        
+        <section class="charts-grid">
+            <div class="chart-container">
+                <h3 class="chart-title">Линейна графика</h3>
+                <canvas id="lineChart"></canvas>
+            </div>
+            
+            <div class="chart-container">
+                <h3 class="chart-title">стълбова диаграма</h3>
+                <canvas id="barChart"></canvas>
+            </div>
+            
+            <div class="chart-container">
+                <h3 class="chart-title">кръгова диаграма</h3>
+                <canvas id="pieChart"></canvas>
+            </div>
+        </section>
+        
+        <section class="css-graphs">
+            <div class="css-graph">
+                <h3 class="chart-title">CSS стълбова диаграма</h3>
+                
+                <div class="bar-graph">
+                    <div class="bar-label">Януари</div>
+                    <div class="bar" style="width: 75%;">
+                        <span class="bar-value">75%</span>
+                    </div>
+                </div>
+                
+                <div class="bar-graph">
+                    <div class="bar-label">Февруари</div>
+                    <div class="bar" style="width: 50%;">
+                        <span class="bar-value">50%</span>
+                    </div>
+                </div>
+                
+                <div class="bar-graph">
+                    <div class="bar-label">Март</div>
+                    <div class="bar" style="width: 90%;">
+                        <span class="bar-value">90%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="css-graph">
+                <h3 class="chart-title">CSS кръгова диаграма</h3>
+                <div class="pie-chart"></div>
+                <div style="text-align: center; margin-top: 15px;">
+                    <p><span style="color: #3498db;">■</span> Продукти (30%)</p>
+                    <p><span style="color: #2ecc71;">■</span> Услуги (30%)</p>
+                    <p><span style="color: #e74c3c;">■</span> Продажби (20%)</p>
+                    <p><span style="color: #f39c12;">■</span> Маркетинг (20%)</p>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <p>© 2023 Визуализация на данни. Всички права запазени.</p>
+        </footer>
+    </div>
 
-<meta name="description" content="COLFUTURO" style="padding: 0;margin: 0;">
-<meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1" style="padding: 0;margin: 0;">
-<meta name="viewport" content="width=device-width, initial-scale=1.0" style="padding: 0;margin: 0;">
-<title>PCB Convocatoria 2023</title>
-<link rel="shortcut icon" href="https://www.colfuturo.org/themes/custom/colfuturo/favicon.ico" type="image/vnd.microsoft.icon">
-<style type="text/css">
-body {
-	background-color:#D0D3D4;
-	margin-left: 0px;
-	margin-top: 0px;
-	margin-right: 0px;
-	margin-bottom: 0px;
-}
-	.footer {
-			font-size:10px;
-			line-height:12px;
-			font-weight:300;
-			color: #4d4d4d;
-			font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', 'DejaVu Sans', Verdana, 'sans-serif';
-			padding: 15px;"	
-		}
-	@media only screen and (max-width: 911px){
-		.footer {
-			font-size:15px!important;
-			line-height:18px!important;
-			font-weight:300;
-			color: #4d4d4d;
-			font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', 'DejaVu Sans', Verdana, 'sans-serif';
-			padding: 20px;"	
-		}
-}	
-</style></head>
-
-
-<body style="padding: 0;margin: 0;font-family: &#39;Open Sans&#39;,Arial,Helvetica,sans-serif;background-color: #D0D3D4;">
-<div align="center">
-<table align="center" border="0" cellpadding="0" cellspacing="0" width="800" bgcolor="#EBEAEC">      
-	
-	<tbody><tr>
-        <td align="center" valign="top"><img src="./PCB Convocatoria 2023_files/02_Consejeria_Becas.png" alt="COLFUTURO" width="800" usemap="#Map2" border="0"></td>
-     </tr>
-	<tr>
-<td class="footer" bgcolor="#D0D3D4" align="center" valign="top" style="font-size: 10px;line-height: 12px;color: #4d4d4d;font-family: &#39;Lucida Grande&#39;, &#39;Lucida Sans Unicode&#39;, &#39;Lucida Sans&#39;, &#39;DejaVu Sans&#39;, Verdana, &#39;sans-serif&#39;;padding: 15px;">Recibes estos boletines porque te encuentras registrado en nuestra base de datos. Si esta información no es relevante para ti o no deseas seguir recibiendo nuestros mensajes, puedes <a href="https://apps.colfuturo.org/boletines/2023/Comunicaciones/*%7CUNSUB%7C*" style="color: #2F3F5D;text-decoration: none;padding: 0;margin: 0;">cancelar tu suscripción</a>. Puedes ver una <a href="https://apps.colfuturo.org/boletines/2023/Comunicaciones/*%7CARCHIVE%7C*" style="color: #2F3F5D;text-decoration: none;padding: 0;margin: 0;">versión en línea</a> del mismo.
-        </td>
-      </tr>
-  </tbody></table>
-
-</div>
-<map name="Map" id="Map">
-  <area shape="rect" coords="264,9,448,50" href="https://www.colfuturo.org/" target="_blank">
-</map>
-
-<map name="Map2" id="Map2">
-  <area shape="rect" coords="50,1217,249,1249" href="https://apps.colfuturo.org/boletines/2023/Comunicaciones/12_Consejeria_Becas.html#">
-  <area shape="rect" coords="257,1218,360,1250" href="https://www.instagram.com/colfuturo" target="_blank">
-  <area shape="rect" coords="372,1218,472,1252" href="https://www.facebook.com/Colfuturo" target="_blank">
-  <area shape="rect" coords="481,1218,587,1250" href="https://twitter.com/Colfuturo" target="_blank">
-  <area shape="rect" coords="597,1217,738,1253" href="https://www.youtube.com/channel/UCcF88j8VeHq5adTcdzeg3LQ" target="_blank">
-  <area shape="rect" coords="304,1268,461,1295" href="https://www.colfuturo.org/" target="_blank">
-  <area shape="rect" coords="163,373,340,418" href="https://www.colfuturo.org/programas/credito-beca/convocatoria" target="_blank">
-  <area shape="rect" coords="67,891,222,938" href="https://www.colfuturo.org/calendario-eventos" target="_blank">
-  <area shape="circle" coords="578,916,14" href="https://twitter.com/Colfuturo" target="_blank">
-  <area shape="circle" coords="614,917,13" href="https://www.facebook.com/Colfuturo" target="_blank">
-  <area shape="circle" coords="650,917,13" href="https://www.instagram.com/colfuturo/" target="_blank">
-  <area shape="circle" coords="687,917,13" href="https://www.linkedin.com/company/colfuturo/" target="_blank">
-  <area shape="circle" coords="721,917,13" href="https://www.youtube.com/channel/UCcF88j8VeHq5adTcdzeg3LQ" target="_blank">
-  <area shape="circle" coords="755,917,14" href="https://www.tiktok.com/@colfuturo" target="_blank">
-</map>
-
-</body></html>
+    <script>
+        // Line Chart
+        const lineCtx = document.getElementById('lineChart').getContext('2d');
+        const lineChart = new Chart(lineCtx, {
+            type: 'line',
+            data: {
+                labels: ['Януари', 'Февруари', 'Март', 'Април', 'Май', 'Юни'],
+                datasets: [{
+                    label: 'Продажби за 2023',
+                    data: [65, 59, 80, 81, 56, 72],
+                    backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                    borderColor: 'rgba(52, 152, 219, 1)',
+                    borderWidth: 2,
+                    tension: 0.3,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                }
+            }
+        });
+        
+        // Bar Chart
+        const barCtx = document.getElementById('barChart').getContext('2d');
+        const barChart = new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Понеделник', 'Вторник', 'Сряда', 'Четвъртък', 'Петък', 'Събота'],
+                datasets: [{
+                    label: 'Посещения',
+                    data: [45, 78, 65, 59, 90, 120],
+                    backgroundColor: [
+                        'rgba(46, 204, 113, 0.7)',
+                        'rgba(52, 152, 219, 0.7)',
+                        'rgba(155, 89, 182, 0.7)',
+                        'rgba(52, 73, 94, 0.7)',
+                        'rgba(241, 196, 15, 0.7)',
+                        'rgba(230, 126, 34, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(46, 204, 113, 1)',
+                        'rgba(52, 152, 219, 1)',
+                        'rgba(155, 89, 182, 1)',
+                        'rgba(52, 73, 94, 1)',
+                        'rgba(241, 196, 15, 1)',
+                        'rgba(230, 126, 34, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                }
+            }
+        });
+        
+        // Pie Chart
+        const pieCtx = document.getElementById('pieChart').getContext('2d');
+        const pieChart = new Chart(pieCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Червен', 'Син', 'Жълт', 'Зелен'],
+                datasets: [{
+                    data: [30, 25, 15, 30],
+                    backgroundColor: [
+                        'rgba(231, 76, 60, 0.7)',
+                        'rgba(52, 152, 219, 0.7)',
+                        'rgba(241, 196, 15, 0.7)',
+                        'rgba(46, 204, 113, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(231, 76, 60, 1)',
+                        'rgba(52, 152, 219, 1)',
+                        'rgba(241, 196, 15, 1)',
+                        'rgba(46, 204, 113, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
