@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">Dashboard Analytics Screenshot</title>
+  <desc id="desc">Mock screenshot showing chart cards and KPI blocks.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#312e81"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" fill="url(#bg)"/>
+  <rect x="28" y="28" width="190" height="88" rx="10" fill="#eef2ff"/>
+  <rect x="236" y="28" width="190" height="88" rx="10" fill="#dbeafe"/>
+  <rect x="444" y="28" width="168" height="88" rx="10" fill="#dcfce7"/>
+  <rect x="28" y="136" width="584" height="196" rx="12" fill="#ffffff" opacity="0.95"/>
+  <polyline points="72,286 160,230 242,248 334,180 420,210 560,156" fill="none" stroke="#4f46e5" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="36" y="350" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="20">Dashboard Analytics</text>
+</svg>
