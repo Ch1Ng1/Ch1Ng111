@@ -12,9 +12,36 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
+        @keyframes gradientShift {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0px); }
+            50%       { transform: translateY(-8px); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes barGrow {
+            from { width: 0; }
+        }
+
+        @keyframes pulsePie {
+            0%, 100% { transform: scale(1); }
+            50%       { transform: scale(1.04); }
+        }
+
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2, #dfe9f3, #c3cfe2);
+            background-size: 400% 400%;
+            animation: gradientShift 10s ease infinite;
             color: #333;
             line-height: 1.6;
             padding: 20px;
@@ -30,6 +57,7 @@
             text-align: center;
             padding: 30px 0;
             margin-bottom: 30px;
+            animation: fadeInUp 0.8s ease both;
         }
         
         h1 {
@@ -55,11 +83,15 @@
             border-radius: 10px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            transition: transform 0.3s ease;
+            animation: fadeInUp 0.8s ease both, floatCard 5s ease-in-out infinite;
         }
-        
+
+        .chart-container:nth-child(1) { animation-delay: 0.1s, 0s; }
+        .chart-container:nth-child(2) { animation-delay: 0.25s, 1.6s; }
+        .chart-container:nth-child(3) { animation-delay: 0.4s, 3.2s; }
+
         .chart-container:hover {
-            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
         }
         
         .chart-title {
@@ -86,7 +118,11 @@
             border-radius: 10px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             padding: 20px;
+            animation: fadeInUp 0.8s ease both;
         }
+
+        .css-graphs .css-graph:nth-child(1) { animation-delay: 0.55s; }
+        .css-graphs .css-graph:nth-child(2) { animation-delay: 0.7s; }
         
         .bar-graph {
             height: 30px;
@@ -100,6 +136,7 @@
             border-radius: 10px;
             background: linear-gradient(90deg, #3498db, #2980b9);
             position: relative;
+            animation: barGrow 1.2s ease both;
         }
         
         .bar-value {
@@ -128,6 +165,7 @@
                 #f39c12 80% 100%
             );
             margin: 0 auto;
+            animation: pulsePie 4s ease-in-out infinite;
         }
         
         footer {
