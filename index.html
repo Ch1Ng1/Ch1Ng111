@@ -3,7 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
+    <title>Martin Ivanov — Portfolio</title>
+    <meta name="description" content="Portfolio of Martin Ivanov — developer, designer, and creator of digital experiences. Interactive web applications, beautiful design, modern technology.">
+    <meta name="author" content="Martin Ivanov">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:type"        content="website">
+    <meta property="og:title"       content="Martin Ivanov — Portfolio">
+    <meta property="og:description" content="Developer, designer, and creator of digital experiences.">
+    <meta property="og:url"         content="https://ch1ng1.github.io/Ch1Ng111/">
+    <meta property="og:image"       content="https://ch1ng1.github.io/Ch1Ng111/og-image.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card"        content="summary_large_image">
+    <meta name="twitter:title"       content="Martin Ivanov — Portfolio">
+    <meta name="twitter:description" content="Developer, designer, and creator of digital experiences.">
+
+    <!-- Favicon (inline SVG) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -562,6 +581,114 @@
             transform: translateY(0);
         }
 
+        /* ─── CUSTOM SCROLLBAR ─── */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--dark); }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--accent), var(--accent2));
+            border-radius: 10px;
+        }
+
+        /* ─── READING PROGRESS BAR ─── */
+        #progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            z-index: 200;
+            transition: width 0.1s linear;
+        }
+
+        /* ─── ACTIVE NAV LINK ─── */
+        .nav-links a.active { color: var(--text); }
+        .nav-links a.active::after {
+            content: '';
+            display: block;
+            height: 2px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            margin-top: 3px;
+            animation: fadeUp 0.3s ease;
+        }
+
+        /* ─── HAMBURGER BUTTON ─── */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 38px;
+            height: 38px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            z-index: 201;
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* ─── MOBILE MENU ─── */
+        #mobile-menu {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 150;
+            background: rgba(15,14,23,0.97);
+            backdrop-filter: blur(20px);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 36px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        #mobile-menu.open { display: flex; opacity: 1; }
+        #mobile-menu a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            transition: color 0.25s;
+        }
+        #mobile-menu a:hover { color: var(--accent); }
+
+        /* ─── SCROLL-TO-TOP BUTTON ─── */
+        #scroll-top {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #fff;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 24px rgba(108,99,255,0.5);
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 100;
+        }
+        #scroll-top.visible { opacity: 1; transform: translateY(0); }
+        #scroll-top:hover { transform: translateY(-3px); }
+
         /* ─── RESPONSIVE ─── */
         @media (max-width: 768px) {
             .about-grid { grid-template-columns: 1fr; }
@@ -570,11 +697,23 @@
             .project-visual { min-height: 200px; }
             .project-info { padding: 32px 24px; }
             .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .lang-toggle { display: none; }
             .contact-card { padding: 40px 24px; }
+            #scroll-top { bottom: 20px; right: 20px; }
         }
     </style>
 </head>
 <body>
+
+<div id="progress-bar"></div>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation">
+    <a href="#about"    data-i18n="navAbout"    class="mobile-link">About</a>
+    <a href="#projects" data-i18n="navProjects" class="mobile-link">Projects</a>
+    <a href="#contact"  data-i18n="navContact"  class="mobile-link">Contact</a>
+</div>
 
 <!-- NAVBAR -->
 <nav>
@@ -584,7 +723,12 @@
         <li><a href="#projects" data-i18n="navProjects">Projects</a></li>
         <li><a href="#contact" data-i18n="navContact">Contact</a></li>
     </ul>
-    <button id="langToggle" class="lang-toggle" type="button">BG</button>
+    <div style="display:flex;align-items:center;gap:12px">
+        <button id="langToggle" class="lang-toggle" type="button">BG</button>
+        <button class="hamburger" id="hamburger" aria-label="Open menu" type="button">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
 </nav>
 
 <!-- HERO -->
@@ -769,6 +913,9 @@
     <p data-i18n-html="footerText">Made with ❤️ by <strong>Martin Ivanov</strong> · 2026</p>
 </footer>
 
+<!-- SCROLL TO TOP -->
+<button id="scroll-top" aria-label="Scroll to top" title="Back to top">&#8593;</button>
+
 <script>
 /* ── Floating particles (hero) ── */
 (function () {
@@ -904,12 +1051,78 @@
     els.forEach(el => io.observe(el));
 })();
 
+/* ── Reading progress bar ── */
+(function () {
+    const bar = document.getElementById('progress-bar');
+    function update() {
+        const scrollTop = window.scrollY;
+        const total = document.documentElement.scrollHeight - window.innerHeight;
+        bar.style.width = (total > 0 ? (scrollTop / total) * 100 : 0) + '%';
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+})();
+
+/* ── Active nav link on scroll ── */
+(function () {
+    const sections = ['about', 'projects', 'vibe', 'contact'];
+    const links = document.querySelectorAll('.nav-links a');
+    function onScroll() {
+        let current = '';
+        sections.forEach(id => {
+            const el = document.getElementById(id);
+            if (el && window.scrollY >= el.offsetTop - 120) current = id;
+        });
+        links.forEach(a => {
+            a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+        });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+})();
+
+/* ── Hamburger / mobile menu ── */
+(function () {
+    const btn = document.getElementById('hamburger');
+    const menu = document.getElementById('mobile-menu');
+    const mobileLinks = menu.querySelectorAll('a');
+
+    function toggle(open) {
+        btn.classList.toggle('open', open);
+        if (open) {
+            menu.style.display = 'flex';
+            requestAnimationFrame(() => { menu.classList.add('open'); });
+        } else {
+            menu.classList.remove('open');
+            menu.addEventListener('transitionend', () => {
+                if (!menu.classList.contains('open')) menu.style.display = 'none';
+            }, { once: true });
+        }
+        document.body.style.overflow = open ? 'hidden' : '';
+        btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    }
+
+    btn.addEventListener('click', () => toggle(!btn.classList.contains('open')));
+    mobileLinks.forEach(a => a.addEventListener('click', () => toggle(false)));
+    menu.addEventListener('click', e => { if (e.target === menu) toggle(false); });
+})();
+
+/* ── Scroll-to-top button ── */
+(function () {
+    const btn = document.getElementById('scroll-top');
+    window.addEventListener('scroll', () => {
+        btn.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+})();
+
 /* ── Language toggle (EN/BG) ── */
 (function () {
     const langToggle = document.getElementById('langToggle');
     const translations = {
         en: {
-            pageTitle: 'Portfolio',
+            pageTitle: 'Martin Ivanov — Portfolio',
+            metaDescription: 'Portfolio of Martin Ivanov — developer, designer, and creator of digital experiences. Interactive web applications, beautiful design, modern technology.',
             navAbout: 'About',
             navProjects: 'Projects',
             navContact: 'Contact',
@@ -951,7 +1164,8 @@
             footerText: 'Made with ❤️ by <strong>Martin Ivanov</strong> · 2026'
         },
         bg: {
-            pageTitle: 'Портфолио',
+            pageTitle: 'Мартин Иванов — Портфолио',
+            metaDescription: 'Портфолио на Мартин Иванов — разработчик, дизайнер и създател на дигитални преживявания. Интерактивни уеб приложения, красив дизайн, модерни технологии.',
             navAbout: 'За мен',
             navProjects: 'Проекти',
             navContact: 'Контакт',
@@ -1012,6 +1226,9 @@
 
         langToggle.textContent = language === 'en' ? 'BG' : 'EN';
         langToggle.setAttribute('aria-label', language === 'en' ? 'Switch to Bulgarian' : 'Switch to English');
+
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) metaDesc.setAttribute('content', dict.metaDescription || metaDesc.getAttribute('content'));
     }
 
     langToggle.addEventListener('click', () => {
