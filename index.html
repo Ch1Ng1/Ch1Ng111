@@ -504,6 +504,7 @@
             border-radius: 50%;
             background: radial-gradient(circle, rgba(108,99,255,0.25), transparent 70%);
             animation: orbFloat 7s ease-in-out infinite;
+            pointer-events: none;
         }
         .contact-card::after {
             content: '';
@@ -513,6 +514,7 @@
             border-radius: 50%;
             background: radial-gradient(circle, rgba(67,233,123,0.2), transparent 70%);
             animation: orbFloat 9s 2s ease-in-out infinite reverse;
+            pointer-events: none;
         }
         @keyframes orbFloat {
             0%, 100% { transform: translate(0, 0) scale(1); }
@@ -897,7 +899,7 @@
                 <span class="contact-icon">🐙</span>
                 GitHub — @Ch1Ng1
             </a>
-            <a href="mailto:mart.ivanov82@gmail.com" class="contact-link-item">
+            <a href="mailto:mart.ivanov82@gmail.com" class="contact-link-item" target="_blank" rel="noopener noreferrer">
                 <span class="contact-icon">📧</span>
                 mart.ivanov82@gmail.com
             </a>
