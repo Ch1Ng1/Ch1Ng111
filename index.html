@@ -1,9 +1,28 @@
 <!DOCTYPE html>
-<html lang="bg">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Портфолио</title>
+    <title>Martin Ivanov — Portfolio</title>
+    <meta name="description" content="Portfolio of Martin Ivanov — developer, designer, and creator of digital experiences. Interactive web applications, beautiful design, modern technology.">
+    <meta name="author" content="Martin Ivanov">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:type"        content="website">
+    <meta property="og:title"       content="Martin Ivanov — Portfolio">
+    <meta property="og:description" content="Developer, designer, and creator of digital experiences.">
+    <meta property="og:url"         content="https://ch1ng1.github.io/Ch1Ng111/">
+    <meta property="og:image"       content="https://ch1ng1.github.io/Ch1Ng111/og-image.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card"        content="summary_large_image">
+    <meta name="twitter:title"       content="Martin Ivanov — Portfolio">
+    <meta name="twitter:description" content="Developer, designer, and creator of digital experiences.">
+
+    <!-- Favicon (inline SVG) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -61,6 +80,21 @@
             transition: color 0.3s;
         }
         .nav-links a:hover { color: var(--text); }
+        .lang-toggle {
+            background: transparent;
+            border: 1.5px solid rgba(255,255,255,0.25);
+            color: var(--text);
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: border-color 0.25s, transform 0.25s;
+        }
+        .lang-toggle:hover {
+            border-color: rgba(255,255,255,0.5);
+            transform: translateY(-2px);
+        }
 
         /* ─── HERO ─── */
         #hero {
@@ -547,6 +581,114 @@
             transform: translateY(0);
         }
 
+        /* ─── CUSTOM SCROLLBAR ─── */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--dark); }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--accent), var(--accent2));
+            border-radius: 10px;
+        }
+
+        /* ─── READING PROGRESS BAR ─── */
+        #progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            z-index: 200;
+            transition: width 0.1s linear;
+        }
+
+        /* ─── ACTIVE NAV LINK ─── */
+        .nav-links a.active { color: var(--text); }
+        .nav-links a.active::after {
+            content: '';
+            display: block;
+            height: 2px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            margin-top: 3px;
+            animation: fadeUp 0.3s ease;
+        }
+
+        /* ─── HAMBURGER BUTTON ─── */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 38px;
+            height: 38px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            z-index: 201;
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* ─── MOBILE MENU ─── */
+        #mobile-menu {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 150;
+            background: rgba(15,14,23,0.97);
+            backdrop-filter: blur(20px);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 36px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        #mobile-menu.open { display: flex; opacity: 1; }
+        #mobile-menu a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            transition: color 0.25s;
+        }
+        #mobile-menu a:hover { color: var(--accent); }
+
+        /* ─── SCROLL-TO-TOP BUTTON ─── */
+        #scroll-top {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #fff;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 24px rgba(108,99,255,0.5);
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 100;
+        }
+        #scroll-top.visible { opacity: 1; transform: translateY(0); }
+        #scroll-top:hover { transform: translateY(-3px); }
+
         /* ─── RESPONSIVE ─── */
         @media (max-width: 768px) {
             .about-grid { grid-template-columns: 1fr; }
@@ -555,20 +697,38 @@
             .project-visual { min-height: 200px; }
             .project-info { padding: 32px 24px; }
             .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .lang-toggle { display: none; }
             .contact-card { padding: 40px 24px; }
+            #scroll-top { bottom: 20px; right: 20px; }
         }
     </style>
 </head>
 <body>
 
+<div id="progress-bar"></div>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation">
+    <a href="#about"    data-i18n="navAbout"    class="mobile-link">About</a>
+    <a href="#projects" data-i18n="navProjects" class="mobile-link">Projects</a>
+    <a href="#contact"  data-i18n="navContact"  class="mobile-link">Contact</a>
+</div>
+
 <!-- NAVBAR -->
 <nav>
     <div class="nav-logo">CH.</div>
     <ul class="nav-links">
-        <li><a href="#about">За мен</a></li>
-        <li><a href="#projects">Проекти</a></li>
-        <li><a href="#contact">Контакт</a></li>
+        <li><a href="#about" data-i18n="navAbout">About</a></li>
+        <li><a href="#projects" data-i18n="navProjects">Projects</a></li>
+        <li><a href="#contact" data-i18n="navContact">Contact</a></li>
     </ul>
+    <div style="display:flex;align-items:center;gap:12px">
+        <button id="langToggle" class="lang-toggle" type="button">BG</button>
+        <button class="hamburger" id="hamburger" aria-label="Open menu" type="button">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
 </nav>
 
 <!-- HERO -->
@@ -576,18 +736,17 @@
     <div class="hero-bg"></div>
     <canvas id="particles"></canvas>
     <div class="hero-content">
-        <div class="hero-badge">✦ Добре дошли в моето портфолио</div>
-        <h1 class="hero-title">
-            Аз съм<br>
-            <span class="gradient-text">Ch1Ng1</span>
+        <div class="hero-badge" data-i18n="heroBadge">✦ Welcome to my portfolio</div>
+        <h1 class="hero-title" data-i18n-html="heroTitle">
+            I am<br>
+            <span class="gradient-text">Martin Ivanov</span>
         </h1>
-        <p class="hero-subtitle">
-            Разработчик, дизайнер и създател на дигитални преживявания. 
-            Превръщам идеи в красиви, функционални продукти.
+        <p class="hero-subtitle" data-i18n="heroSubtitle">
+            Developer, designer, and creator of digital experiences. I turn ideas into beautiful, functional products.
         </p>
         <div class="hero-btns">
-            <a href="#projects" class="btn btn-primary">Виж проектите ↓</a>
-            <a href="#contact" class="btn btn-ghost">Свържи се с мен</a>
+            <a href="#projects" class="btn btn-primary" data-i18n="heroProjectsBtn">View Projects ↓</a>
+            <a href="#contact" class="btn btn-ghost" data-i18n="heroContactBtn">Contact Me</a>
         </div>
     </div>
     <div class="scroll-hint">SCROLL</div>
@@ -595,26 +754,22 @@
 
 <!-- ABOUT -->
 <section id="about">
-    <div class="section-label">01 — За мен</div>
-    <h2 class="section-title reveal">Кой съм аз?</h2>
+    <div class="section-label" data-i18n="aboutLabel">01 — About</div>
+    <h2 class="section-title reveal" data-i18n="aboutTitle">Who am I?</h2>
     <div class="about-grid">
         <div class="about-avatar-wrap reveal">
             <div class="avatar-ring"></div>
             <div class="avatar-emoji">👨‍💻</div>
         </div>
         <div class="about-text reveal">
-            <p>
-                Здравей! Казвам се <strong>Ch1Ng1</strong> — страстен разработчик, 
-                обичащ да създава красиви и функционални уеб приложения.
+            <p data-i18n-html="aboutP1">
+                Hi! My name is <strong>Martin Ivanov</strong> — a passionate developer who loves creating beautiful and functional web applications.
             </p>
-            <p>
-                Обичам да комбинирам техническо мислене с креативен дизайн, 
-                за да създавам продукти, които не само работят добре, 
-                но и изглеждат страхотно.
+            <p data-i18n="aboutP2">
+                I love combining technical thinking with creative design to build products that not only work well, but also look great.
             </p>
-            <p>
-                Когато не кодирам, можеш да ме намериш да изследвам нови технологии, 
-                да играя игри или да слушам музика.
+            <p data-i18n="aboutP3">
+                When I am not coding, you can find me exploring new technologies, gaming, or listening to music.
             </p>
             <div class="skills-grid">
                 <span class="skill-tag">HTML / CSS</span>
@@ -631,8 +786,8 @@
 
 <!-- PROJECTS CAROUSEL -->
 <section id="projects">
-    <div class="section-label">02 — Проекти</div>
-    <h2 class="section-title reveal">Моите творения</h2>
+    <div class="section-label" data-i18n="projectsLabel">02 — Projects</div>
+    <h2 class="section-title reveal" data-i18n="projectsTitle">My creations</h2>
     <div class="carousel-wrapper reveal">
         <div class="carousel-track-outer">
             <div class="carousel-track" id="carouselTrack">
@@ -643,14 +798,13 @@
                         <div class="project-emoji">📊</div>
                     </div>
                     <div class="project-info">
-                        <div class="project-tag">Уеб приложение</div>
-                        <h3>Визуализация на данни</h3>
-                        <p>
-                            Интерактивни графики и диаграми изградени с Chart.js. 
-                            Красиви анимации и responsive дизайн за всички устройства.
+                        <div class="project-tag" data-i18n="project1Tag">Web App</div>
+                        <h3 data-i18n="project1Title">Data Visualization</h3>
+                        <p data-i18n="project1Desc">
+                            Interactive charts and graphs built with Chart.js. Beautiful animations and responsive design for all devices.
                         </p>
                         <div class="project-links">
-                            <a href="#" class="project-link pl-solid">Виж проекта</a>
+                            <a href="#" class="project-link pl-solid" data-i18n="projectView">View Project</a>
                             <a href="https://github.com/Ch1Ng1" class="project-link pl-outline">GitHub →</a>
                         </div>
                     </div>
@@ -662,14 +816,13 @@
                         <div class="project-emoji">🌿</div>
                     </div>
                     <div class="project-info">
-                        <div class="project-tag">Личен проект</div>
-                        <h3>Tracker Приложение</h3>
-                        <p>
-                            Персонален трекер за навици и цели. 
-                            Помага да следиш прогреса си и да постигаш мечтите си всеки ден.
+                        <div class="project-tag" data-i18n="project2Tag">Personal Project</div>
+                        <h3 data-i18n="project2Title">Habit Tracker App</h3>
+                        <p data-i18n="project2Desc">
+                            A personal habit and goal tracker. It helps you monitor your progress and reach your goals every day.
                         </p>
                         <div class="project-links">
-                            <a href="#" class="project-link pl-solid">Виж проекта</a>
+                            <a href="#" class="project-link pl-solid" data-i18n="projectView">View Project</a>
                             <a href="https://github.com/Ch1Ng1" class="project-link pl-outline">GitHub →</a>
                         </div>
                     </div>
@@ -681,14 +834,13 @@
                         <div class="project-emoji">🎨</div>
                     </div>
                     <div class="project-info">
-                        <div class="project-tag">Дизайн</div>
-                        <h3>Портфолио сайт</h3>
-                        <p>
-                            Именно този сайт — изграден с чист HTML, CSS и JavaScript. 
-                            Плавни анимации, красиви градиенти и модерен дизайн.
+                        <div class="project-tag" data-i18n="project3Tag">Design</div>
+                        <h3 data-i18n="project3Title">Portfolio Website</h3>
+                        <p data-i18n="project3Desc">
+                            This very website — built with pure HTML, CSS, and JavaScript. Smooth animations, beautiful gradients, and modern design.
                         </p>
                         <div class="project-links">
-                            <a href="#" class="project-link pl-solid">Ти си тук ✓</a>
+                            <a href="#" class="project-link pl-solid" data-i18n="project3Here">You are here ✓</a>
                             <a href="https://github.com/Ch1Ng1/Ch1Ng111" class="project-link pl-outline">GitHub →</a>
                         </div>
                     </div>
@@ -697,17 +849,17 @@
                 <!-- Card 4 -->
                 <div class="project-card">
                     <div class="project-visual pv-4">
-                        <div class="project-emoji">🚀</div>
+                        <div class="project-emoji">🪙</div>
                     </div>
                     <div class="project-info">
-                        <div class="project-tag">Следващ проект</div>
-                        <h3>Нещо страхотно идва…</h3>
-                        <p>
-                            Работя върху нещо ново и вълнуващо. 
-                            Следи GitHub профила ми за актуализации!
+                        <div class="project-tag" data-i18n="project4Tag">FinTech App</div>
+                        <h3 data-i18n="project4Title">Xcoin</h3>
+                        <p data-i18n="project4Desc">
+                            Crypto portfolio dashboard with market tracking, interactive charts, and detailed asset analytics.
                         </p>
                         <div class="project-links">
-                            <a href="https://github.com/Ch1Ng1" class="project-link pl-solid">Следи ме</a>
+                            <a href="https://ch1ng1.github.io/Xcoin/" class="project-link pl-solid" data-i18n="projectView">View Project</a>
+                            <a href="https://github.com/Ch1Ng1/Xcoin" class="project-link pl-outline">GitHub →</a>
                         </div>
                     </div>
                 </div>
@@ -726,20 +878,19 @@
 <section id="vibe">
     <canvas id="windCanvas"></canvas>
     <div class="vibe-content reveal">
-        <div class="vibe-big">Код с душа.</div>
-        <p class="vibe-sub">Всеки ред е писан с внимание, страст и кафе ☕</p>
+        <div class="vibe-big" data-i18n="vibeTitle">Code with soul.</div>
+        <p class="vibe-sub" data-i18n="vibeSub">Every line is written with care, passion, and coffee ☕</p>
     </div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
-    <div class="section-label">03 — Контакт</div>
-    <h2 class="section-title reveal">Нека се свържем</h2>
+    <div class="section-label" data-i18n="contactLabel">03 — Contact</div>
+    <h2 class="section-title reveal" data-i18n="contactTitle">Let us connect</h2>
     <div class="contact-card reveal">
-        <h3>Имаш идея? Нека говорим! 💬</h3>
-        <p>
-            Винаги съм отворен за нови проекти, колаборации 
-            или просто интересен разговор. Пиши ми!
+        <h3 data-i18n="contactHeading">Got an idea? Let us talk! 💬</h3>
+        <p data-i18n="contactText">
+            I am always open to new projects, collaborations, or just an interesting conversation. Send me a message!
         </p>
         <div class="contact-links">
             <a href="https://github.com/Ch1Ng1" class="contact-link-item">
@@ -748,11 +899,11 @@
             </a>
             <a href="#" class="contact-link-item">
                 <span class="contact-icon">📧</span>
-                Изпрати имейл
+                <span data-i18n="sendEmail">Send Email</span>
             </a>
             <a href="#" class="contact-link-item">
                 <span class="contact-icon">💼</span>
-                LinkedIn профил
+                <span data-i18n="linkedinProfile">LinkedIn Profile</span>
             </a>
         </div>
     </div>
@@ -760,8 +911,11 @@
 
 <!-- FOOTER -->
 <footer>
-    <p>Направен с ❤️ от <strong>Ch1Ng1</strong> · 2026</p>
+    <p data-i18n-html="footerText">Made with ❤️ by <strong>Martin Ivanov</strong> · 2026</p>
 </footer>
+
+<!-- SCROLL TO TOP -->
+<button id="scroll-top" aria-label="Scroll to top" title="Back to top">&#8593;</button>
 
 <script>
 /* ── Floating particles (hero) ── */
@@ -896,6 +1050,192 @@
         entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
     }, { threshold: 0.15 });
     els.forEach(el => io.observe(el));
+})();
+
+/* ── Reading progress bar ── */
+(function () {
+    const bar = document.getElementById('progress-bar');
+    function update() {
+        const scrollTop = window.scrollY;
+        const total = document.documentElement.scrollHeight - window.innerHeight;
+        bar.style.width = (total > 0 ? (scrollTop / total) * 100 : 0) + '%';
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+})();
+
+/* ── Active nav link on scroll ── */
+(function () {
+    const sections = ['about', 'projects', 'vibe', 'contact'];
+    const links = document.querySelectorAll('.nav-links a');
+    function onScroll() {
+        let current = '';
+        sections.forEach(id => {
+            const el = document.getElementById(id);
+            if (el && window.scrollY >= el.offsetTop - 120) current = id;
+        });
+        links.forEach(a => {
+            a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+        });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+})();
+
+/* ── Hamburger / mobile menu ── */
+(function () {
+    const btn = document.getElementById('hamburger');
+    const menu = document.getElementById('mobile-menu');
+    const mobileLinks = menu.querySelectorAll('a');
+
+    function toggle(open) {
+        btn.classList.toggle('open', open);
+        if (open) {
+            menu.style.display = 'flex';
+            requestAnimationFrame(() => { menu.classList.add('open'); });
+        } else {
+            menu.classList.remove('open');
+            menu.addEventListener('transitionend', () => {
+                if (!menu.classList.contains('open')) menu.style.display = 'none';
+            }, { once: true });
+        }
+        document.body.style.overflow = open ? 'hidden' : '';
+        btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    }
+
+    btn.addEventListener('click', () => toggle(!btn.classList.contains('open')));
+    mobileLinks.forEach(a => a.addEventListener('click', () => toggle(false)));
+    menu.addEventListener('click', e => { if (e.target === menu) toggle(false); });
+})();
+
+/* ── Scroll-to-top button ── */
+(function () {
+    const btn = document.getElementById('scroll-top');
+    window.addEventListener('scroll', () => {
+        btn.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+})();
+
+/* ── Language toggle (EN/BG) ── */
+(function () {
+    const langToggle = document.getElementById('langToggle');
+    const translations = {
+        en: {
+            pageTitle: 'Martin Ivanov — Portfolio',
+            metaDescription: 'Portfolio of Martin Ivanov — developer, designer, and creator of digital experiences. Interactive web applications, beautiful design, modern technology.',
+            navAbout: 'About',
+            navProjects: 'Projects',
+            navContact: 'Contact',
+            heroBadge: '✦ Welcome to my portfolio',
+            heroTitle: 'I am<br><span class="gradient-text">Martin Ivanov</span>',
+            heroSubtitle: 'Developer, designer, and creator of digital experiences. I turn ideas into beautiful, functional products.',
+            heroProjectsBtn: 'View Projects ↓',
+            heroContactBtn: 'Contact Me',
+            aboutLabel: '01 — About',
+            aboutTitle: 'Who am I?',
+            aboutP1: 'Hi! My name is <strong>Martin Ivanov</strong> — a passionate developer who loves creating beautiful and functional web applications.',
+            aboutP2: 'I love combining technical thinking with creative design to build products that not only work well, but also look great.',
+            aboutP3: 'When I am not coding, you can find me exploring new technologies, gaming, or listening to music.',
+            projectsLabel: '02 — Projects',
+            projectsTitle: 'My creations',
+            project1Tag: 'Web App',
+            project1Title: 'Data Visualization',
+            project1Desc: 'Interactive charts and graphs built with Chart.js. Beautiful animations and responsive design for all devices.',
+            projectView: 'View Project',
+            project2Tag: 'Personal Project',
+            project2Title: 'Habit Tracker App',
+            project2Desc: 'A personal habit and goal tracker. It helps you monitor your progress and reach your goals every day.',
+            project3Tag: 'Design',
+            project3Title: 'Portfolio Website',
+            project3Desc: 'This very website — built with pure HTML, CSS, and JavaScript. Smooth animations, beautiful gradients, and modern design.',
+            project3Here: 'You are here ✓',
+            project4Tag: 'FinTech App',
+            project4Title: 'Xcoin',
+            project4Desc: 'Crypto portfolio dashboard with market tracking, interactive charts, and detailed asset analytics.',
+            vibeTitle: 'Code with soul.',
+            vibeSub: 'Every line is written with care, passion, and coffee ☕',
+            contactLabel: '03 — Contact',
+            contactTitle: 'Let us connect',
+            contactHeading: 'Got an idea? Let us talk! 💬',
+            contactText: 'I am always open to new projects, collaborations, or just an interesting conversation. Send me a message!',
+            sendEmail: 'Send Email',
+            linkedinProfile: 'LinkedIn Profile',
+            footerText: 'Made with ❤️ by <strong>Martin Ivanov</strong> · 2026'
+        },
+        bg: {
+            pageTitle: 'Мартин Иванов — Портфолио',
+            metaDescription: 'Портфолио на Мартин Иванов — разработчик, дизайнер и създател на дигитални преживявания. Интерактивни уеб приложения, красив дизайн, модерни технологии.',
+            navAbout: 'За мен',
+            navProjects: 'Проекти',
+            navContact: 'Контакт',
+            heroBadge: '✦ Добре дошли в моето портфолио',
+            heroTitle: 'Аз съм<br><span class="gradient-text">Мартин Иванов</span>',
+            heroSubtitle: 'Разработчик, дизайнер и създател на дигитални преживявания. Превръщам идеи в красиви, функционални продукти.',
+            heroProjectsBtn: 'Виж проектите ↓',
+            heroContactBtn: 'Свържи се с мен',
+            aboutLabel: '01 — За мен',
+            aboutTitle: 'Кой съм аз?',
+            aboutP1: 'Здравей! Казвам се <strong>Мартин Иванов</strong> — страстен разработчик, обичащ да създава красиви и функционални уеб приложения.',
+            aboutP2: 'Обичам да комбинирам техническо мислене с креативен дизайн, за да създавам продукти, които не само работят добре, но и изглеждат страхотно.',
+            aboutP3: 'Когато не кодирам, можеш да ме намериш да изследвам нови технологии, да играя игри или да слушам музика.',
+            projectsLabel: '02 — Проекти',
+            projectsTitle: 'Моите творения',
+            project1Tag: 'Уеб приложение',
+            project1Title: 'Визуализация на данни',
+            project1Desc: 'Интерактивни графики и диаграми изградени с Chart.js. Красиви анимации и responsive дизайн за всички устройства.',
+            projectView: 'Виж проекта',
+            project2Tag: 'Личен проект',
+            project2Title: 'Tracker Приложение',
+            project2Desc: 'Персонален трекер за навици и цели. Помага да следиш прогреса си и да постигаш мечтите си всеки ден.',
+            project3Tag: 'Дизайн',
+            project3Title: 'Портфолио сайт',
+            project3Desc: 'Именно този сайт — изграден с чист HTML, CSS и JavaScript. Плавни анимации, красиви градиенти и модерен дизайн.',
+            project3Here: 'Ти си тук ✓',
+            project4Tag: 'FinTech приложение',
+            project4Title: 'Xcoin',
+            project4Desc: 'Крипто портфолио табло с проследяване на пазара, интерактивни графики и детайлни анализи на активите.',
+            vibeTitle: 'Код с душа.',
+            vibeSub: 'Всеки ред е писан с внимание, страст и кафе ☕',
+            contactLabel: '03 — Контакт',
+            contactTitle: 'Нека се свържем',
+            contactHeading: 'Имаш идея? Нека говорим! 💬',
+            contactText: 'Винаги съм отворен за нови проекти, колаборации или просто интересен разговор. Пиши ми!',
+            sendEmail: 'Изпрати имейл',
+            linkedinProfile: 'LinkedIn профил',
+            footerText: 'Направен с ❤️ от <strong>Мартин Иванов</strong> · 2026'
+        }
+    };
+
+    let currentLanguage = 'en';
+
+    function applyLanguage(language) {
+        const dict = translations[language];
+        document.documentElement.lang = language;
+        document.title = dict.pageTitle;
+
+        document.querySelectorAll('[data-i18n]').forEach((el) => {
+            const key = el.dataset.i18n;
+            if (dict[key]) el.textContent = dict[key];
+        });
+        document.querySelectorAll('[data-i18n-html]').forEach((el) => {
+            const key = el.dataset.i18nHtml;
+            if (dict[key]) el.innerHTML = dict[key];
+        });
+
+        langToggle.textContent = language === 'en' ? 'BG' : 'EN';
+        langToggle.setAttribute('aria-label', language === 'en' ? 'Switch to Bulgarian' : 'Switch to English');
+
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) metaDesc.setAttribute('content', dict.metaDescription || metaDesc.getAttribute('content'));
+    }
+
+    langToggle.addEventListener('click', () => {
+        currentLanguage = currentLanguage === 'en' ? 'bg' : 'en';
+        applyLanguage(currentLanguage);
+    });
+
+    applyLanguage(currentLanguage);
 })();
 </script>
 </body>
