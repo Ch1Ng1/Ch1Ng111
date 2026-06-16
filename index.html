@@ -504,6 +504,7 @@
             border-radius: 50%;
             background: radial-gradient(circle, rgba(108,99,255,0.25), transparent 70%);
             animation: orbFloat 7s ease-in-out infinite;
+            pointer-events: none;
         }
         .contact-card::after {
             content: '';
@@ -513,6 +514,7 @@
             border-radius: 50%;
             background: radial-gradient(circle, rgba(67,233,123,0.2), transparent 70%);
             animation: orbFloat 9s 2s ease-in-out infinite reverse;
+            pointer-events: none;
         }
         @keyframes orbFloat {
             0%, 100% { transform: translate(0, 0) scale(1); }
@@ -552,6 +554,8 @@
             text-decoration: none;
             color: var(--text);
             font-weight: 600;
+            position: relative;
+            z-index: 2;
             transition: all 0.3s;
         }
         .contact-link-item:hover {
