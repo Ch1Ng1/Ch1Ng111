@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Лично портфолио на Ch1Ng1 с проекти, умения и контакти.">
+  <title>Ch1Ng1 | Portfolio</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Основна навигация">
+      <a class="logo" href="#home">Ch1Ng1</a>
+      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="menuList">Меню</button>
+      <ul class="menu" id="menuList">
+        <li><a href="#home">Начало</a></li>
+        <li><a href="#about">За мен</a></li>
+        <li><a href="#skills">Умения</a></li>
+        <li><a href="#projects">Проекти</a></li>
+        <li><a href="#contact">Контакти</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="hero section">
+      <div class="container hero-content">
+        <div>
+          <p class="kicker">Здравей, аз съм</p>
+          <h1>Ch1Ng1</h1>
+          <p class="lead">Frontend developer с фокус върху чисти интерфейси, добра производителност и удобство за потребителя.</p>
+          <a class="button" href="#projects">Виж проектите</a>
+        </div>
+        <div class="avatar-card" aria-label="Профилен аватар">
+          <div class="avatar">C1</div>
+          <p>Open to work</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="container">
+        <h2>За мен</h2>
+        <p>Изграждам уеб приложения с акцент върху ясна структура, адаптивен дизайн и поддръжка в реална среда. Харесвам краткия, подреден код и практичните решения.</p>
+      </div>
+    </section>
+
+    <section id="skills" class="section alt">
+      <div class="container">
+        <h2>Умения</h2>
+        <ul class="chips" aria-label="Технологии">
+          <li>HTML5</li>
+          <li>CSS3 / Responsive Design</li>
+          <li>JavaScript (ES6+)</li>
+          <li>Git & GitHub</li>
+          <li>Accessibility Basics</li>
+          <li>REST API Integration</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="projects" class="section">
+      <div class="container">
+        <h2>Проекти</h2>
+        <div class="project-grid">
+          <article class="project-card">
+            <img src="assets/screenshots/project-analytics.svg" alt="Screenshot на Dashboard Analytics проект">
+            <h3>Dashboard Analytics</h3>
+            <p>Админ панел за визуализация на метрики и бърз преглед на ключови показатели.</p>
+            <p class="links">
+              <a href="https://github.com/Ch1Ng1" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <a href="#" aria-disabled="true">Live Demo (soon)</a>
+            </p>
+          </article>
+
+          <article class="project-card">
+            <img src="assets/screenshots/project-shop.svg" alt="Screenshot на Ecommerce Landing Page проект">
+            <h3>Ecommerce Landing Page</h3>
+            <p>Лека и адаптивна начална страница за онлайн магазин с CTA и продуктови секции.</p>
+            <p class="links">
+              <a href="https://github.com/Ch1Ng1" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <a href="#" aria-disabled="true">Live Demo (soon)</a>
+            </p>
+          </article>
+
+          <article class="project-card">
+            <img src="assets/screenshots/project-task.svg" alt="Screenshot на Task Tracker проект">
+            <h3>Task Tracker</h3>
+            <p>Прост инструмент за управление на задачи с приоритети и филтриране по статус.</p>
+            <p class="links">
+              <a href="https://github.com/Ch1Ng1" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <a href="#" aria-disabled="true">Live Demo (soon)</a>
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section alt">
+      <div class="container">
+        <h2>Контакти</h2>
+        <p>Ще се радвам да се чуем за нов проект или сътрудничество.</p>
+        <ul class="contact-list">
+          <li>Email: <a href="mailto:ch1ng1@example.com">ch1ng1@example.com</a></li>
+          <li>GitHub: <a href="https://github.com/Ch1Ng1" target="_blank" rel="noopener noreferrer">github.com/Ch1Ng1</a></li>
+          <li>LinkedIn: <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">linkedin.com/in/ch1ng1</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Ch1Ng1. Всички права запазени.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
